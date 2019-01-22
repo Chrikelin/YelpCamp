@@ -27,12 +27,10 @@ router.post("/campgrounds", middleware.isLoggedIn, function(req, res) {
         username: req.user.username
     };
     var newCampground = {name: name, price: price, image: image, description: desc, author: author};
-    // Create a new campground and save to the DB
     Campground.create(newCampground, function(err, newlyCreated) {
         if(err) {
             console.log(err);
         } else {
-            // Redirect to campgrounds page
             res.redirect("/campgrounds");           
         }
     });
@@ -52,7 +50,6 @@ router.get("/campgrounds/:id", function(req, res) {
             req.flash("error", "Campground not found");
             res.redirect("back");
         } else {
-            //Render show template with that campground
             res.render("campgrounds/show", {campground: foundCampground});            
         }
     });

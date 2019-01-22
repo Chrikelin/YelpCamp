@@ -3,19 +3,19 @@ var express     = require("express"),
     passport    = require("passport"),
     User        = require("../models/user");
 
-//Root route
+//ROOT ROUTE
 router.get("/", function(req, res) {
     res.render("landing");
 });
 
 
 
-//Show register form
+//SHOW REGISTER FORM
 router.get("/register", function(req ,res) {
     res.render("register");
 });
 
-//Sign up logic
+//SIGN UP LOGIC
 router.post("/register", function(req, res) {
     var newUser = new User({username: req.body.username});
     User.register(newUser, req.body.password, function(err, user) {
@@ -31,12 +31,12 @@ router.post("/register", function(req, res) {
     });
 });
 
-//Login form
+//LOGIN FORM
 router.get("/login", function(req, res) {
     res.render("login");
 });
 
-//Login logic
+//LOGIN LOGIC
 router.post("/login", passport.authenticate("local",
     {
         successRedirect: "/campgrounds", 
@@ -44,7 +44,7 @@ router.post("/login", passport.authenticate("local",
     }), function(req, res) {
 });
 
-//Logout
+//LOGOUT
 router.get("/logout", function(req, res) {
     req.logout();
     req.flash("success", "Logged you out!");
